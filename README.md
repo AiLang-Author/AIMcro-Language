@@ -1,79 +1,123 @@
-AIMacro Vision
-"For Python devs who want to retire with a full head of hair!" - A Python-like language without the whitespace nightmares, clear block structure, and built-in OS services via macro system.
----
+# AIMacro Language
 
-### Executive Summary
-AIMcro is a high-level macro language that compiles to AILang, offering Python-like simplicity without the whitespace footgun. It provides a clean, verb-first syntax with built-in OS services and zero imports required.
+**For Python developers who want to retire with a full head of hair.**
 
-### Core Features
+## What is AIMacro?
 
-**Clean Syntax**
-```aimcro
-# No indentation errors - blocks use : and end;
-func calculate x y:
-  result = x + y;
-  @print "Result: {result}";
-  return result;
+AIMacro is a Python-compatible macro language that compiles to AILang assembly. It gives you Python's readability without the whitespace nightmares, clear block delimiters, and escape hatches to lower-level code when you need performance.
+
+## Language Specification v3.2
+
+### Core Syntax
+
+```aimacro
+# Functions with explicit end markers - no indentation errors!
+def calculate(x, y):
+    result = x + y;
+    print(result);
+    return result;
 end;
 
-# Macro calls use @ prefix
-temp = @sensor.cpu.temp;
-@display.text "CPU: {temp}°C";
-
-# Natural word order
-@file.write "data.txt" content;
-```
-
-**Key Advantages**
-- **No imports needed** - All standard functionality built-in
-- **Plain types** - Dynamic typing with automatic inference  
-- **Inline AILang** - Escape hatch for performance-critical code
-- **Macro libraries** - Pre-compiled system functions via @ syntax
-- **Block clarity** - `:` opens, `end;` closes (no whitespace errors)
-
-### Technical Design
-
-**Transpilation Pipeline**
-```
-AIMcro Source → Parser → AST → AILang Code → x86 Assembly
-```
-
-**Macro System**
-- System macros: `@sensor`, `@display`, `@file`, `@net`
-- GUI macros: `@window`, `@button`, `@input`  
-- Computation: `@math`, `@crypto`, `@hash`
-- Direct OS service access through AILang runtime
-
-### Example Application
-```aimcro
-# CPU monitor with GUI
-window = @gui.create "System Monitor" 400 300;
-
-loop:
-  cpu = @sensor.cpu.temp;
-  mem = @sensor.memory.used;
-  
-  @display.clear window;
-  @display.text window "CPU: {cpu}°C" 10 10;
-  @display.bar window mem 10 40 380 20;
-  
-  @time.sleep 1000;
+# Or use 'func' for AIMacro native style
+func main():
+    values = range(10);
+    total = 0;
+    
+    for val in values:
+        total = total + val;
+    end;
+    
+    return total;
 end;
 ```
 
-### Implementation Status
-- **Phase 1**: Transpiler development (Q1 2026)
-- **Phase 2**: Core macro libraries (Q2 2026)  
-- **Phase 3**: Integration with AILang compiler (Q3 2026)
+### Key Features
 
-### Use Cases
-- System utilities and monitoring tools
-- Rapid GUI application development
-- Educational programming environment
-- Embedded systems control
+**No Whitespace Sensitivity**
+- Blocks open with `:` and close with `end;`
+- Semicolons terminate statements (optional but recommended)
+- Mix tabs and spaces without breaking your code
 
-### Design Philosophy
-AIMcro eliminates programming ceremony while maintaining performance. Write code that reads like natural language, compiles to optimized assembly, and never worry about missing colons or incorrect indentation.
+**Python Compatibility**
+- Use `def`/`pass` or `func`/`end`
+- Built-in functions work as expected: `print()`, `len()`, `range()`, `str()`, `int()`
+- Gradual migration path from Python
+
+**Escape Hatches**
+```aimacro
+func optimize():
+    # Drop to AILang for performance
+    ailang {
+        WhileLoop LessThan(i, 1000000) {
+            ArraySet(buffer, i, 0)
+            i = Add(i, 1)
+        }
+    };
+    
+    # Direct assembly when needed
+    asm {
+        MOV RAX, 60
+        XOR RDI, RDI
+        SYSCALL
+    };
+end;
+```
+
+### Parser Implementation
+
+The AIMacro parser (v3.2) is written in pure AILang and includes:
+- Python-style function call parsing
+- Automatic built-in function translation
+- AILANG and assembly escape blocks
+- Clear error boundaries (no cascading indentation failures)
+
+### Quick Start
+
+```bash
+# Compile AIMacro to AILang
+./aimacro_parser your_code.aimacro > output.ailang
+
+# Then compile AILang to executable
+./ailang_compiler output.ailang
+```
+
+### Why AIMacro?
+
+**Python's Problems:**
+- Invisible whitespace bugs
+- Tabs vs spaces holy wars  
+- Copy-paste destroys indentation
+- Silent scope errors
+
+**AIMacro's Solutions:**
+- Explicit `end;` markers
+- Clear visual blocks
+- Whitespace is just whitespace
+- Compile-time scope validation
+
+### Syntax Comparison
+
+| Python | AIMacro | Benefit |
+|--------|---------|---------|
+| Invisible indentation | `:` and `end;` | Visual block boundaries |
+| `def func():` | `def func():` or `func name():` | Compatible or cleaner |
+| Whitespace sensitive | Semicolon terminated | No silent errors |
+| No escape hatch | `ailang { }` blocks | Performance when needed |
+
+### Coming Soon
+
+- Full Python stdlib compatibility layer
+- List comprehensions
+- Generators via coroutines
+- Class definitions
+- Type hints (that actually do something)
+
+### Philosophy
+
+AIMacro isn't trying to replace Python - it's trying to save it from itself. Keep Python's elegant syntax and extensive ecosystem, but fix the foundational mistakes that cause developers endless frustration.
+
+Write code that reads like Python, compiles like C, and never breaks because someone's editor converted tabs to spaces.
 
 ---
-*AIMcro: Making AILang accessible to everyone*
+
+*AIMacro: Because life's too short to debug whitespace.*
