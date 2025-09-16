@@ -1,5 +1,6 @@
-# AIMcro Language
-## A Python-Like Macro Language for AILang
+AIMacro Vision
+"For Python devs who want to retire with a full head of hair!" - A Python-like language without the whitespace nightmares, clear block structure, and built-in OS services via macro system.
+---
 
 ### Executive Summary
 AIMcro is a high-level macro language that compiles to AILang, offering Python-like simplicity without the whitespace footgun. It provides a clean, verb-first syntax with built-in OS services and zero imports required.
